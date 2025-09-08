@@ -17,6 +17,7 @@ while True:
 
     if choice=="I":        
         print("고객 정보 입력")
+        customer={'name':'','gender':'',"email":'',"birthyear":''}
     elif choice=="C":
         print("현재 고객 정보 조회")
     elif choice == 'P':
