@@ -1,8 +1,11 @@
 import re
-custlist=[{'name':'kim','gender':'M',"email":'test@email.com',"birthyear":'2000'}]
+custlist=[{'name':'kim','gender':'M',"email":'test01@email.com',"birthyear":'2000'},
+          {'name':'park','gender':'M',"email":'test02@email.com',"birthyear":'2000'},
+          {'name':'hwang','gender':'M',"email":'test03@email.com',"birthyear":'2000'},
+          {'name':'lee','gender':'M',"email":'test04@email.com',"birthyear":'2000'}]
 page=-1
 
-
+er = input("""성별을 입력해주세요.\n성별은 M,F,m,f 만 입력가능합니다.""").upper()
 while True:
     choice=input('''
     다음 중에서 하실 일을 골라주세요 :
@@ -30,25 +33,25 @@ while True:
                     print("이름은 문자로만 입력해주세요.")
             
             while(True):
-                gender = input("""성별을 입력해주세요.
-                성별은 M,F,m,f 만 입력가능합니다.""").upper()
+                gender = input("""성별을 입력해주세요.\n성별은 M,F,m,f 만 입력가능합니다.""").upper()
                 if gender == "M" or gender == "F":
                     customer[gender] = gender
                     break
                 else:
                     print("성별은 M,F,m,f 만 입력 가능합니다.")
-            
+            email_pattern = re.compile(r'^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
             while(True):
                 email = input("이메일을 입력해주세요.")
                 check = 0
                 for i in custlist:
-                    if i[email] == email:
+                    if i["email"] == email:
                         print("이미 있는 이메일 입니다.")
                         check = 1
                         break
 
                 if check == 0:
-                    if re.search("@", email) == "@":
+                    
+                    if email_pattern.match(email):
                         customer[email] = email
                         break
                     else:
@@ -56,15 +59,17 @@ while True:
             
             while(True):
                 customer["birthyear"] = input("출생년도 4자리를 입력해주세요.")
-                if str(customer["birthyear"].isdigit()) and len(customer["birthyear"] == 4):
+                if str(customer["birthyear"].isdigit()) and len(customer["birthyear"]) == 4:
                     customer["birthyear"] = int(customer["birthyear"])
                     break
                 else:
                     print("출생년도는 숫자 4자리를 입력해주세요.")
 
             print(customer)
-            custlist.append    
-        
+            custlist.append(customer)
+            print(custlist)
+            page = len(custlist) - 1
+            break
 
     elif choice=="C":
         print("현재 고객 정보 조회")
